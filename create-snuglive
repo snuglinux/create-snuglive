@@ -6,7 +6,7 @@ install_snuglinux_func="/usr/share/snuglinux/install-snuglinux.func"
 
 FILE_COFIG="/etc/snuglive.conf"
 
-pkgs="install-snuglinux archiso arch-install-scripts awk dosfstools e2fsprogs findutils gzip libarchive libisoburn mtools openssl pacman sed squashfs-tools"
+pkgs="install-snuglinux wget archiso arch-install-scripts awk dosfstools e2fsprogs findutils gzip libarchive libisoburn mtools openssl pacman sed squashfs-tools"
 pacman -Q $pkgs  > /dev/null
 if [ "$?" != 0 ]; then
    pacman -S $pkgs
@@ -39,7 +39,28 @@ aic94xx-firmware
 wd719x-firmware
 install-snuglinux" >> ${PATCH_SNUGLIVE}/packages.x86_64
 
-sed -e "s|archiso|snugiso|g" -i  ${PATCH_SNUGLIVE}/airootfs/etc/hostname
+#sed -e "s|archiso|snugiso|g" -i  ${PATCH_SNUGLIVE}/airootfs/etc/hostname
 
-edit_pacman_conf "/data/snuglinux/snuglive"
+rm ${PATCH_SNUGLIVE}/syslinux/splash.png
+
+for f in "${PATCH_SNUGLIVE}/syslinux/*" ; do
+    sed -e "s|Arch Linux|Snug Linux|g" -i  ${f}
+done
+
+wget https://github.com/snuglinux/create-snuglive/raw/main/src/syslinux/splash.png -O ${PATCH_SNUGLIVE}/syslinux/splash.png
+
+for f in "${PATCH_SNUGLIVE}/efiboot/loader/entries/*" ; do
+    sed -e "s|Arch Linux|Snug Linux|g" -i  ${f}
+done
+
+#cp  /etc/locale.gen ${PATCH_SNUGLIVE}/airootfs/etc
+
+wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/etc/passwd -O ${PATCH_SNUGLIVE}/airootfs/etc/passwd
+wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/etc/hostname -O ${PATCH_SNUGLIVE}/airootfs/etc/hostname
+wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/etc/vconsole.conf -O ${PATCH_SNUGLIVE}/airootfs/etc/vconsole.conf
+wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/etc/locale.gen -O ${PATCH_SNUGLIVE}/airootfs/etc/locale.gen
+wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/root/.bashrc -O ${PATCH_SNUGLIVE}/airootfs/root/.bashrc
+wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/root/customize_airootfs.sh -O ${PATCH_SNUGLIVE}/airootfs/root/customize_airootfs.sh
+wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/usr/local/bin/Installation_guide -O ${PATCH_SNUGLIVE}/src/airootfs/usr/local/bin/Installation_guide
+
 
