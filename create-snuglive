@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# create snuglive
+
+install_snuglinux_func="/usr/share/snuglinux/install-snuglinux.func"
+
+FILE_COFIG="/etc/snuglive.conf"
+
+pkgs="install-snuglinux archiso arch-install-scripts awk dosfstools e2fsprogs findutils gzip libarchive libisoburn mtools openssl pacman sed squashfs-tools"
+pacman -Q $pkgs  > /dev/null
+if [ "$?" != 0 ]; then
+   pacman -S $pkgs
+fi
+
+if ! [ -f "${install_snuglinux_func}" ]; then
+   exit 1
+fi
+
+source ${install_snuglinux_func}
+
+if ! [ -f ${FILE_COFIG} ]; then
+   show_message NOT_FOUND_CONFIG ${FILE_COFIG}
+   exit 1
+else
+   source "${FILE_COFIG}"
+fi
+
+if ! [ -d "${PATCH_SNUGLIVE}" ]; then
+  mkdir "${PATCH_SNUGLIVE}"
+else
+  show_message FAILED_TO_CREATE_DIR ${PATCH_SNUGLIVE}
+  exit 1;
+fi
+
+cp -r /usr/share/archiso/configs/releng/* ${PATCH_SNUGLIVE}
+
+echo "# snuglinux
+aic94xx-firmware
+wd719x-firmware
+install-snuglinux" >> ${PATCH_SNUGLIVE}/packages.x86_64
+
+sed -e "s|archiso|snugiso|g" -i  ${PATCH_SNUGLIVE}/airootfs/etc/hostname
+
+edit_pacman_conf "/data/snuglinux/snuglive"
+
