@@ -67,6 +67,7 @@ wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/etc/host
 wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/etc/vconsole.conf -O ${PATCH_SNUGLIVE}/airootfs/etc/vconsole.conf
 wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/etc/locale.gen -O ${PATCH_SNUGLIVE}/airootfs/etc/locale.gen
 wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/root/.bashrc -O ${PATCH_SNUGLIVE}/airootfs/root/.bashrc
+wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/root/.bash_history -O ${PATCH_SNUGLIVE}/airootfs/root/.bash_history
 wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/root/customize_airootfs.sh -O ${PATCH_SNUGLIVE}/airootfs/root/customize_airootfs.sh
 wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/usr/local/bin/Installation_guide -O ${PATCH_SNUGLIVE}/airootfs/usr/local/bin/Installation_guide
 wget https://github.com/snuglinux/create-snuglive/raw/main/src/build-snuglive.sh -O ${PATCH_SNUGLIVE}/build-snuglive.sh
