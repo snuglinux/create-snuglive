@@ -48,6 +48,8 @@ for f in "${PATCH_SNUGLIVE}/syslinux/*" ; do
     sed -e "s|Arch Linux|Snug Linux|g" -i  ${f}
 done
 
+edit_pacman_conf "${PATCH_SNUGLIVE}"
+
 wget https://github.com/snuglinux/create-snuglive/raw/main/src/syslinux/splash.png -O ${PATCH_SNUGLIVE}/syslinux/splash.png
 
 for f in "${PATCH_SNUGLIVE}/efiboot/loader/entries/*" ; do
@@ -64,3 +66,5 @@ wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/root/.ba
 wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/root/customize_airootfs.sh -O ${PATCH_SNUGLIVE}/airootfs/root/customize_airootfs.sh
 wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/usr/local/bin/Installation_guide -O ${PATCH_SNUGLIVE}/airootfs/usr/local/bin/Installation_guide
 wget https://github.com/snuglinux/create-snuglive/raw/main/src/build-snuglive.sh -O ${PATCH_SNUGLIVE}/build-snuglive.sh
+
+chmod 755 ${PATCH_SNUGLIVE}/build-snuglive.sh
