@@ -39,7 +39,8 @@ aic94xx-firmware
 wd719x-firmware
 install-snuglinux" >> ${PATCH_SNUGLIVE}/packages.x86_64
 
-#sed -e "s|archiso|snugiso|g" -i  ${PATCH_SNUGLIVE}/airootfs/etc/hostname
+sed -e "s|Arch Linux|Snug Linux|g" -i ${PATCH_SNUGLIVE}/profiledef.sh
+sed -e "s|archlinux|snuglinux|g" -i ${PATCH_SNUGLIVE}/profiledef.sh
 
 rm ${PATCH_SNUGLIVE}/syslinux/splash.png
 
@@ -61,6 +62,5 @@ wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/etc/vcon
 wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/etc/locale.gen -O ${PATCH_SNUGLIVE}/airootfs/etc/locale.gen
 wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/root/.bashrc -O ${PATCH_SNUGLIVE}/airootfs/root/.bashrc
 wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/root/customize_airootfs.sh -O ${PATCH_SNUGLIVE}/airootfs/root/customize_airootfs.sh
-wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/usr/local/bin/Installation_guide -O ${PATCH_SNUGLIVE}/src/airootfs/usr/local/bin/Installation_guide
-
-
+wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/usr/local/bin/Installation_guide -O ${PATCH_SNUGLIVE}/airootfs/usr/local/bin/Installation_guide
+wget https://github.com/snuglinux/create-snuglive/raw/main/src/build-snuglive.sh -O ${PATCH_SNUGLIVE}/build-snuglive.sh
