@@ -22,4 +22,17 @@ if ! [ -d "${PATCH_SNUGLIVE}" ]; then
   exit 1;
 fi
 
+if [ -d "${PATCH_SNUGLIVE}/iso" ]; then
+   rm -R "${PATCH_SNUGLIVE}/iso"
+fi
+
+if [ -d "${PATCH_SNUGLIVE}/x86_64" ]; then
+   rm -R "${PATCH_SNUGLIVE}/x86_64"
+fi
+rm -f ${PATCH_SNUGLIVE}/base._*
+rm -f ${PATCH_SNUGLIVE}/build._*
+rm -f ${PATCH_SNUGLIVE}/_build_*
+rm -f ${PATCH_SNUGLIVE}/iso.*
+rm -f ${PATCH_SNUGLIVE}/efiboot.img
+
 mkarchiso -v -w ${PATCH_SNUGLIVE} -o ${PATCH_SNUGLIVE}/out_dir ${PATCH_SNUGLIVE}
