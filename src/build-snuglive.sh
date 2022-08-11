@@ -5,6 +5,7 @@ install_snuglinux_func="/usr/share/snuglinux/install-snuglinux.func"
 FILE_COFIG="/etc/snuglive.conf"
 
 if ! [ -f "${install_snuglinux_func}" ]; then
+   echo "Install the package install_snuglinux"
    exit 1
 fi
 
@@ -22,17 +23,41 @@ if ! [ -d "${PATCH_SNUGLIVE}" ]; then
   exit 1;
 fi
 
-if [ -d "${PATCH_SNUGLIVE}/iso" ]; then
-   rm -R "${PATCH_SNUGLIVE}/iso"
-fi
+_clear(){
+  name=$1
+  if [ -d $name ]; then
+     rm -Rf "$name"
+     if [ $? != 0 ]; then
+        show_message FAILED_EXECUTE_COMMAND "rm -Rf "$name""
+        exit 1
+     fi
+  else
+     rm -f $name
+     if [ $? != 0 ]; then
+#       show_message FAILED_EXECUTE_COMMAND "$name"
+       exit 1
+     fi
+  fi
+}
 
-if [ -d "${PATCH_SNUGLIVE}/x86_64" ]; then
-   rm -R "${PATCH_SNUGLIVE}/x86_64"
-fi
-rm -f ${PATCH_SNUGLIVE}/base._*
-rm -f ${PATCH_SNUGLIVE}/build._*
-rm -f ${PATCH_SNUGLIVE}/_build_*
-rm -f ${PATCH_SNUGLIVE}/iso.*
-rm -f ${PATCH_SNUGLIVE}/efiboot.img
+sbat(){
+   sbat_file="${pkgdir}/usr/share/grub/sbat.csv"
+   if ![ -f ${sbat_file} ]; then
+      touch "${sbat_file}"
+      echo "sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md" >> "${sbat_file}"
+      echo "grub,1,Free Software Foundation,grub,${_pkgver},https//www.gnu.org/software/grub/" >> "${sbat_file}"
+      echo "grub.arch,1,Arch Linux,grub,${_pkgver},https://archlinux.org/packages/core/x86_64/grub/" >> "${sbat_file}"
+   fi
+}
+
+sbat
+
+_clear ${PATCH_SNUGLIVE}/iso
+_clear ${PATCH_SNUGLIVE}/x86_64
+_clear ${PATCH_SNUGLIVE}/base._*
+_clear ${PATCH_SNUGLIVE}/build._*
+_clear ${PATCH_SNUGLIVE}/_build_*
+_clear ${PATCH_SNUGLIVE}/iso.*
+_clear ${PATCH_SNUGLIVE}/efiboot.img
 
 mkarchiso -v -w ${PATCH_SNUGLIVE} -o ${PATCH_SNUGLIVE}/out_dir ${PATCH_SNUGLIVE}
