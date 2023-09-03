@@ -42,7 +42,7 @@ _clear(){
 
 sbat(){
    sbat_file="${pkgdir}/usr/share/grub/sbat.csv"
-   if ![ -f ${sbat_file} ]; then
+   if ! [ -f ${sbat_file} ]; then
       touch "${sbat_file}"
       echo "sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md" >> "${sbat_file}"
       echo "grub,1,Free Software Foundation,grub,${_pkgver},https//www.gnu.org/software/grub/" >> "${sbat_file}"
@@ -53,11 +53,6 @@ sbat(){
 sbat
 
 _clear ${PATCH_SNUGLIVE}/iso
-_clear ${PATCH_SNUGLIVE}/x86_64
-_clear ${PATCH_SNUGLIVE}/base._*
-_clear ${PATCH_SNUGLIVE}/build._*
-_clear ${PATCH_SNUGLIVE}/_build_*
-_clear ${PATCH_SNUGLIVE}/iso.*
-_clear ${PATCH_SNUGLIVE}/efiboot.img
+_clear ${PATCH_SNUGLIVE}/work_dir
 
-mkarchiso -v -w ${PATCH_SNUGLIVE} -o ${PATCH_SNUGLIVE}/out_dir ${PATCH_SNUGLIVE}
+mkarchiso -v -w ${PATCH_SNUGLIVE}/work_dir -o ${PATCH_SNUGLIVE}/out_dir ${PATCH_SNUGLIVE}
