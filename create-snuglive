@@ -67,6 +67,7 @@ done
 #cp  /etc/locale.gen ${PATCH_SNUGLIVE}/airootfs/etc
 
 wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/etc/passwd -O ${PATCH_SNUGLIVE}/airootfs/etc/passwd
+wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/etc/motd -O ${PATCH_SNUGLIVE}/airootfs/etc/motd
 wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/etc/hostname -O ${PATCH_SNUGLIVE}/airootfs/etc/hostname
 wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/etc/vconsole.conf -O ${PATCH_SNUGLIVE}/airootfs/etc/vconsole.conf
 wget https://github.com/snuglinux/create-snuglive/raw/main/src/airootfs/etc/locale.gen -O ${PATCH_SNUGLIVE}/airootfs/etc/locale.gen
